@@ -1,10 +1,9 @@
 {
   "name": "jwtiny",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ultra tiny (649 bytes), cross-platform (browser/Node.js) and cross-module (CommonJS/ES2015/AMD) JWT utils: body parser and isExpired method.",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NOALVO/jwtiny.git"
