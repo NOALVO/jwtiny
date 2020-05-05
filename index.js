@@ -1,1 +1,38 @@
-!function(e,t){if("function"==typeof define&&define.amd)define(["exports"],t);else if("undefined"!=typeof exports)t(exports);else{var n={exports:{}};t(n.exports),e.repl=n.exports}}("undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:this,function(e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.parseJwt=function(e){try{var t=e.split(".")[1],n=t.replace("-","+").replace("_","/");return JSON.parse(function(e){if("undefined"==typeof window)return Buffer.from(e,"base64").toString("utf8");return atob(e)}(n))}catch(e){}},e.isExpired=function(e){var t=!0;if(e&&e.exp){var n=1e3*e.exp;t=n<=Date.now()}return t}});
+function fromB64(h) {
+  if (typeof window === 'undefined') {
+    return Buffer.from(h, 'base64').toString('utf8');
+  }
+  return atob(h);
+}
+
+/**
+ * Decodifica o payload de um token JWT.
+ * @param {string} token Token codificado no protocolo JWT
+ */
+function parseJwt(token) {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(fromB64(base64));
+  } catch (e) {
+    //
+  }
+}
+
+/**
+ * Verifica se um token JWT está expirado através do seu payload.
+ * @param {Object} tokenPayload Payload do token JWT a ser verificado.
+ */
+function isTokenExpirado(tokenPayload) {
+  let expirado = true;
+  if (tokenPayload && tokenPayload.exp) {
+    const expMs = tokenPayload.exp * 1000/* milissegundos */;
+    expirado = expMs <= Date.now();
+  }
+  return expirado;
+}
+
+module.exports = {
+  parseJwt,
+  isTokenExpirado,
+};
