@@ -23,16 +23,16 @@ function parseJwt(token) {
  * Verifica se um token JWT está expirado através do seu payload.
  * @param {Object} tokenPayload Payload do token JWT a ser verificado.
  */
-function isTokenExpirado(tokenPayload) {
-  let expirado = true;
+function isExpired(tokenPayload) {
+  let expired = true;
   if (tokenPayload && tokenPayload.exp) {
     const expMs = tokenPayload.exp * 1000/* milissegundos */;
-    expirado = expMs <= Date.now();
+    expired = expMs <= Date.now();
   }
-  return expirado;
+  return expired;
 }
 
 module.exports = {
   parseJwt,
-  isTokenExpirado,
+  isExpired,
 };
